@@ -59,10 +59,13 @@ void SceneManager::initializeGraphics()
 
 void SceneManager::addShader()
 {
-	shader = new Shader("../shaders/transformations.vs", "../shaders/transformations.frag");
-	shader2 = new Shader("../shaders/teste.vs", "../shaders/teste.frag");
-	shader3 = new Shader("../shaders/grayscale.vs", "../shaders/grayscale.frag");
-	shader4 = new Shader("../shaders/bluerender.vs", "../shaders/bluerender.frag");
+	objShader.push_back(new Shader("../shaders/binarizacao.vs", "../shaders/binarizacao.frag"));
+	objShader.push_back(new Shader("../shaders/bluerender.vs", "../shaders/bluerender.frag"));
+	objShader.push_back(new Shader("../shaders/inversao.vs", "../shaders/inversao.frag"));
+	objShader.push_back(new Shader("../shaders/grayscale.vs", "../shaders/grayscale.frag"));
+	objShader.push_back(new Shader("../shaders/colorizacao.vs", "../shaders/colorizacao.frag"));
+	objShader.push_back(new Shader("../shaders/myfilter.vs", "../shaders/myfilter.frag"));
+	objShader.push_back(new Shader("../shaders/transformations.vs", "../shaders/transformations.frag"));
 }
 
 
@@ -160,18 +163,19 @@ void SceneManager::setupScene()
 	Sprite* obj = new Sprite;
 	obj->setPosition(glm::vec3(0.0f, 0.0f, 0.0));
 	obj->setDimension(glm::vec3(150.0f, 200.0f, 1.0f)); //note que depois podemos reescalar conforme tamanho da sprite
-	obj->setShader(shader);
+	obj->setShader(objShader[0]);
 	objects.push_back(obj); //adiciona o primeiro obj
 
 	//Carregamento das texturas (pode ser feito intercalado na criação)
 	//Futuramente, utilizar classe de materiais e armazenar dimensoes, etc
 	unsigned int texID = loadTexture("../textures/lena.png");
 	objects[0]->setTexture(texID);
-	
+/*
+*/
 	obj = new Sprite;
 	obj->setPosition(glm::vec3(300.0f, 0.0f, 0.0));
 	obj->setDimension(glm::vec3(150.0f, 200.0f, 1.0f)); //note que depois podemos reescalar conforme tamanho da sprite
-	obj->setShader(shader2);
+	obj->setShader(objShader[1]);
 	objects.push_back(obj); //adiciona o primeiro obj
 
 	objects[1]->setTexture(texID);
@@ -179,7 +183,7 @@ void SceneManager::setupScene()
 	obj = new Sprite;
 	obj->setPosition(glm::vec3(600.0f, 0.0f, 0.0));
 	obj->setDimension(glm::vec3(150.0f, 200.0f, 1.0f)); //note que depois podemos reescalar conforme tamanho da sprite
-	obj->setShader(shader3);
+	obj->setShader(objShader[2]);;
 	objects.push_back(obj); //adiciona o primeiro obj
 
 	objects[2]->setTexture(texID);
@@ -187,11 +191,35 @@ void SceneManager::setupScene()
 	obj = new Sprite;
 	obj->setPosition(glm::vec3(0.0f, 200.0f, 0.0));
 	obj->setDimension(glm::vec3(150.0f, 200.0f, 1.0f)); //note que depois podemos reescalar conforme tamanho da sprite
-	obj->setShader(shader4);
+	obj->setShader(objShader[3]);
 	objects.push_back(obj); //adiciona o primeiro obj
 
 	objects[3]->setTexture(texID);
 
+	obj = new Sprite;
+	obj->setPosition(glm::vec3(300.0f, 200.0f, 0.0));
+	obj->setDimension(glm::vec3(150.0f, 200.0f, 1.0f)); //note que depois podemos reescalar conforme tamanho da sprite
+	obj->setShader(objShader[4]);
+	objects.push_back(obj); //adiciona o primeiro obj
+
+	objects[4]->setTexture(texID);
+
+	obj = new Sprite;
+	obj->setPosition(glm::vec3(600.0f, 200.0f, 0.0));
+	obj->setDimension(glm::vec3(150.0f, 200.0f, 1.0f)); //note que depois podemos reescalar conforme tamanho da sprite
+	obj->setShader(objShader[5]);
+	objects.push_back(obj); //adiciona o primeiro obj
+
+	objects[5]->setTexture(texID);
+
+	obj = new Sprite;
+	obj->setPosition(glm::vec3(0.0f, 400.0f, 0.0));
+	obj->setDimension(glm::vec3(150.0f, 200.0f, 1.0f)); //note que depois podemos reescalar conforme tamanho da sprite
+	obj->setShader(objShader[6]);
+	objects.push_back(obj); //adiciona o primeiro obj
+
+	objects[6]->setTexture(texID);
+	
 	//Definindo a janela do mundo (ortho2D)
 	ortho2D[0] = 0.0f; //xMin
 	ortho2D[1] = 800.0f; //xMax
@@ -210,30 +238,15 @@ void SceneManager::setupCamera2D() //TO DO: parametrizar aqui
 
 	projection = glm::ortho(ortho2D[0], ortho2D[1], ortho2D[2], ortho2D[3], zNear, zFar);
 
-	shader->Use();
-	//Obtendo o identificador da matriz de projeção para enviar para o shader
-	GLint projLoc = glGetUniformLocation(shader->ID, "projection");
+	for (Shader* shaders : objShader) {
+		shaders->Use();
+		//Obtendo o identificador da matriz de projeção para enviar para o shader
+		GLint projLoc = glGetUniformLocation(shaders->ID, "projection");
 
-	//Enviando a matriz de projeção para o shader
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+		//Enviando a matriz de projeção para o shader
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+	}
 
-	shader2->Use();
-	//Obtendo o identificador da matriz de projeção para enviar para o shader
-	projLoc = glGetUniformLocation(shader2->ID, "projection");
-	//Enviando a matriz de projeção para o shader
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-	shader3->Use();
-	//Obtendo o identificador da matriz de projeção para enviar para o shader
-	projLoc = glGetUniformLocation(shader3->ID, "projection");
-	//Enviando a matriz de projeção para o shader
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-	shader4->Use();
-	//Obtendo o identificador da matriz de projeção para enviar para o shader
-	projLoc = glGetUniformLocation(shader4->ID, "projection");
-	//Enviando a matriz de projeção para o shader
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 }
 
 unsigned int SceneManager::loadTexture(string filename)

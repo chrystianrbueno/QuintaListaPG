@@ -156,12 +156,18 @@
     <ClInclude Include="stb_image.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\shaders\binarizacao.frag" />
+    <None Include="..\shaders\binarizacao.vs" />
     <None Include="..\shaders\bluerender.frag" />
     <None Include="..\shaders\bluerender.vs" />
+    <None Include="..\shaders\colorizacao.frag" />
+    <None Include="..\shaders\colorizacao.vs" />
     <None Include="..\shaders\grayscale.frag" />
     <None Include="..\shaders\grayscale.vs" />
-    <None Include="..\shaders\teste.frag" />
-    <None Include="..\shaders\teste.vs" />
+    <None Include="..\shaders\inversao.frag" />
+    <None Include="..\shaders\inversao.vs" />
+    <None Include="..\shaders\myfilter.frag" />
+    <None Include="..\shaders\myfilter.vs" />
     <None Include="..\shaders\transformations.frag" />
     <None Include="..\shaders\transformations.vs" />
   </ItemGroup>

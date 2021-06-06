@@ -55,12 +55,6 @@
     <None Include="..\shaders\transformations.vs">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="..\shaders\teste.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\shaders\teste.vs">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="..\shaders\grayscale.frag">
       <Filter>Shaders</Filter>
     </None>
@@ -71,6 +65,30 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\shaders\bluerender.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\binarizacao.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\binarizacao.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\colorizacao.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\colorizacao.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\inversao.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\inversao.vs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\myfilter.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\myfilter.vs">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -47,11 +47,15 @@ private:
 	GLFWwindow *window;
 
 	//Programa de shader (por enquanto, assumimos apenas 1 instância)
+	/*
 	Shader *shader;
 	Shader *shader2;
 	Shader *shader3;
 	Shader *shader4;
+	Shader* shader5;
+	*/
 
+	vector <Shader*> objShader;
 	//Câmera 2D - Matriz de projeção (ortográfica) com os limites em x,y
 	glm::vec4 ortho2D; //xmin, xmax, ymin, ymax
 	glm::mat4 projection;
