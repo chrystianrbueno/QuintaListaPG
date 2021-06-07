@@ -39,7 +39,7 @@ transformations
 
 myFilter
 	Primeiro coloquei um filtro de inversao na imagem
-	Depois fiz uma colorização (0.5) na camada verda da imagem
+	Depois fiz uma colorização (0.5) na camada azul da imagem
 	
 binarizacao
 bluerender
